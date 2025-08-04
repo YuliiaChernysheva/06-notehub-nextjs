@@ -11,8 +11,13 @@ import Pagination from "@/components/Pagination/Pagination";
 import NoteList from "@/components/NoteList/NoteList";
 import NoteForm from "@/components/NoteForm/NoteForm";
 import Modal from "@/components/Modal/Modal";
+import { Note } from "@/types/note";
 
-export default function NotesClient() {
+interface NotesClientProps {
+  notes: Note[];
+}
+
+export default function NotesClient({ notes }: NotesClientProps) {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
@@ -36,6 +41,7 @@ export default function NotesClient() {
         perPage: 12,
         search: debouncedSearch,
       }),
+    initialData: { notes, totalPages: 1 },
     placeholderData: keepPreviousData,
   });
 
