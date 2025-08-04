@@ -10,7 +10,7 @@ import SearchBox from "@/components/SearchBox/SearchBox";
 import Pagination from "@/components/Pagination/Pagination";
 import NoteList from "@/components/NoteList/NoteList";
 import NoteForm from "@/components/NoteForm/NoteForm";
-import NoteModal from "@/components/NoteModal/NoteModal";
+import Modal from "@/components/Modal/Modal";
 
 export default function NotesClient() {
   const [page, setPage] = useState(1);
@@ -59,9 +59,9 @@ export default function NotesClient() {
       {isSuccess && data.notes.length > 0 && <NoteList notes={data.notes} />}
       {isSuccess && data.notes.length === 0 && <p>No notes found</p>}
       {modalIsOpen && (
-        <NoteModal onClose={() => setModalIsOpen(false)}>
+        <Modal onClose={() => setModalIsOpen(false)}>
           <NoteForm onClose={() => setModalIsOpen(false)} />
-        </NoteModal>
+        </Modal>
       )}
     </div>
   );
