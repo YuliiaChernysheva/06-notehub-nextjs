@@ -19,7 +19,7 @@ const NoteDetails = async ({ params }: Props) => {
     queryKey: ["note", noteId],
     queryFn: () => fetchNoteById(noteId),
   });
-  const note = await fetchNoteById(noteId);
+  await fetchNoteById(noteId);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
