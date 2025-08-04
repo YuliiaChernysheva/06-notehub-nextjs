@@ -5,7 +5,7 @@ type Props = {
   reset: () => void;
 };
 
-const Error = ({ error, reset }: Props) => {
+const Error = ({ error }: Props) => {
   return (
     <div>
       <p>Could not fetch the list of notes. {error.message}</p>
