@@ -3,23 +3,33 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchNoteById } from "@/lib/api";
 import css from "./NoteDetails.module.css";
+import { useState } from "react";
+import { useParams } from "next/navigation";
 
-interface Props {
-  noteId: string;
-}
+const NoteDetailsClient = () => {
+  const { noteId } = useParams<{ noteId: string }>();
 
-const NoteDetailsClient = ({ noteId }: Props) => {
-  const { data, isLoading, isError } = useQuery({
+  const {
+    data: note,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["note", noteId],
     queryFn: () => fetchNoteById(noteId),
     refetchOnMount: false,
   });
 
+  const [isEdit, setIsEdit] = useState(false);
+
+  const handleEdit = () => {
+    setIsEdit(true);
+  };
+
   if (isLoading) {
     return <p>Loading, please wait...</p>;
   }
 
-  if (isError || !data) {
+  if (isError || !note) {
     return <p>Something went wrong.</p>;
   }
 
@@ -27,10 +37,10 @@ const NoteDetailsClient = ({ noteId }: Props) => {
     <div className={css.container}>
       <div className={css.item}>
         <div className={css.header}>
-          <h2>{data.title}</h2>
+          <h2>{note?.title}</h2>
         </div>
-        <p className={css.content}>{data.content}</p>
-        <p className={css.date}>{data.createdAt}</p>
+        <p className={css.content}>{note?.content}</p>
+        <p className={css.date}>{note?.createdAt}</p>
       </div>
     </div>
   );
